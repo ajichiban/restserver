@@ -5,24 +5,25 @@ const app = express()
 
 const bodyParser = require('body-parser')
 
-// parse application/x-www.form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false}))
-
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
 // parse application/json
 app.use(bodyParser.json())
 
 app.get('/',(req,res)=>{
-    res.json('hello world')
+    res.json('hello world producction')
 })
 
 app.post('/usuario', (req, res)=> {
 
     let body = req.body
 
-    if(body.nombre === undefined){
+    if(body.nombre === undefined  ){
         res.status(400).json({
             ok: false,
-            mensaje:"nombre es requerido"
+            mensaje:"nombre es requerido",
+            age:body.age
         })
     }else{
         res.json({persona: body})
