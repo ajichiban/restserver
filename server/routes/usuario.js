@@ -4,8 +4,11 @@ const Usuario = require('../models/usuario')
 /*--- Packages ---*/
 const bcrypt = require('bcrypt-nodejs')
 const express = require('express')
-/*const _ = require('underscore')*/
+const _ = require('underscore')
 
+/*--- Middlewares ---*/
+const {verificaToken} = require('../middlewares/autentificacion')
+const {verificaAdminRole} = require('../middlewares/autentificacion')
 const app = express()
 
 /*--- Home / ---*/
@@ -14,7 +17,7 @@ app.get('/',(req,res)=>{
 })
 
 /*--- Listar users ---*/
-app.get('/usuario', (req, res)=>{
+app.get('/usuario', verificaToken, (req, res)=>{
 
     let desde = req.query.desde || 0
     desde = Number(desde)
@@ -51,7 +54,7 @@ app.get('/usuario', (req, res)=>{
 })
 
 /*--- Create user ---*/
-app.post('/usuario', (req, res)=> {
+app.post('/usuario', [verificaToken, verificaAdminRole], (req, res)=> {
 
     let body = req.body
 
@@ -78,7 +81,7 @@ app.post('/usuario', (req, res)=> {
 })
 
 /*--- Update user ---*/
-app.put('/usuario/:id', (req, res)=> {
+app.put('/usuario/:id', [verificaToken, verificaAdminRole], (req, res)=> {
     let id = req.params.id
     // .pick metodo de underscore
     let body = _.pick(req.body, ['nombre','email','role','img','estado']) 
@@ -100,7 +103,7 @@ app.put('/usuario/:id', (req, res)=> {
 })
 
 /*--- Delete user ---*/
-app.delete('/usuario/:id',(req,res)=>{
+app.delete('/usuario/:id', [verificaToken, verificaAdminRole], (req,res)=>{
 
     let id = req.params.id
     

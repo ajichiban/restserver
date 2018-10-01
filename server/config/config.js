@@ -11,6 +11,17 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 
 
 /*=============================================
+				JWT VENCIMIENTO
+=============================================*/
+process.env.CADUCIDAD_TOKEN = "30 days"
+
+/*=============================================
+				SEED DE AUTENTIFICACION
+=============================================*/
+
+process.env.SEED = 'este-es-el-seed-de-desarrollo'
+
+/*=============================================
 				BASES DE DATOS
 =============================================*/
 
