@@ -25,7 +25,8 @@ app.post('/login', (req, res)=> {
 				err
 			})
 		}
-
+		console.log(userDb)
+		
 		if( !userDb){
 			return res.status(400).json({
 				ok:false,
